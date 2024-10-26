@@ -42,6 +42,15 @@ BEGIN
 END //
 DELIMITER ;
 
+-- Mostrar DDL
+DELIMITER //
+CREATE PROCEDURE procSelectComentariosDDL()
+BEGIN
+    SELECT comen_id, comen_texto, comen_fecha, tbl_productos_pro_id, tbl_clientes_cli_id
+    FROM tbl_comentarios;
+END //
+DELIMITER ;
+
 -- Eliminar
 DELIMITER //
 CREATE PROCEDURE procDeleteComentarios(IN v_id INT)

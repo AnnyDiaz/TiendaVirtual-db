@@ -42,6 +42,17 @@ BEGIN
 END //
 DELIMITER ;
 
+
+
+-- Mostrar DDL
+DELIMITER //
+CREATE PROCEDURE procSelectPedidosDDL()
+BEGIN
+    SELECT pedi_id, pedi_fecha, pedi_estado, pedi_total, tbl_clientes_cli_id
+    FROM tbl_pedidos;
+END //
+DELIMITER ;
+
 -- Eliminar
 DELIMITER //
 CREATE PROCEDURE procDeletePedidos(IN v_id INT)

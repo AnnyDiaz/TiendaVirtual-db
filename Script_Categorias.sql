@@ -33,6 +33,16 @@ BEGIN
 END //
 DELIMITER ;
 
+-- Mostrar DDL
+DELIMITER //
+CREATE PROCEDURE procSelectCategoriasDDL()
+BEGIN
+    SELECT cate_id, cate_nombre
+    FROM tbl_categorias;
+END //
+DELIMITER ;
+
+
 -- Eliminar
 DELIMITER //
 CREATE PROCEDURE procDeleteCategorias(IN v_id INT)

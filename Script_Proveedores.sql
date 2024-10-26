@@ -39,6 +39,15 @@ BEGIN
 END //
 DELIMITER ;
 
+-- Mostrar DDL
+DELIMITER //
+CREATE PROCEDURE procSelectProveedoresDDL()
+BEGIN
+	select prove_id,concat (prove_nombre, ' - ',prove_direccion) AS Informacion
+    from tbl_proveedores;
+END//
+DELIMITER ;
+
 -- Eliminar
 DELIMITER //
 CREATE PROCEDURE procDeleteProveedores(IN v_id INT)

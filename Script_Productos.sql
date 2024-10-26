@@ -45,6 +45,16 @@ BEGIN
 END //
 DELIMITER ;
 
+-- Mostrar DDL
+
+DELIMITER //
+CREATE PROCEDURE procSelectProductosDDL()
+BEGIN
+	select pro_id, pro_nombre, pro_descripcion, pro_precio, tbl_categorias_cate_id, tbl_proveedores_prove_id
+    from tbl_productos;
+END//
+DELIMITER ;
+
 -- Eliminar
 DELIMITER //
 CREATE PROCEDURE procDeleteProductos(IN v_id INT)

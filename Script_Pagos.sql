@@ -48,6 +48,15 @@ BEGIN
 END //
 DELIMITER ;
 
+-- Mostrar DDL
+DELIMITER //
+CREATE PROCEDURE procSelectPagosDDL()
+BEGIN
+    SELECT pag_id, pag_fecha, pag_monto, pag_metodo_pago, pag_estado, tbl_pedidos_pedi_id, tbl_pedidos_tbl_clientes_cli_id
+    FROM tbl_pagos;
+END //
+DELIMITER ;
+
 -- Eliminar
 DELIMITER //
 CREATE PROCEDURE procDeletePagos(IN v_id INT)

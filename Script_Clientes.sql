@@ -42,6 +42,15 @@ BEGIN
 END //
 DELIMITER ;
 
+-- Mostrar unicamente el nombre, direccion y el telefono de los clientes
+DELIMITER //
+CREATE PROCEDURE procSelectClientesDDL()
+BEGIN
+	select cli_id,concat (cli_nombre, ' - ',cli_direccion, ' - ', cli_telefono) AS Informacion
+    from tbl_clientes;
+END//
+DELIMITER ;
+
 -- Eliminar
 DELIMITER //
 CREATE PROCEDURE procDeleteClientes(IN v_id INT)

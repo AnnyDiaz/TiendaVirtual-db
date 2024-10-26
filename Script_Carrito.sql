@@ -42,6 +42,18 @@ BEGIN
 END //
 DELIMITER ;
 
+
+-- Mostrar ddl
+DELIMITER //
+CREATE PROCEDURE procSelectCarritoDDL()
+BEGIN
+    SELECT carri_id, carri_cantidad, carri_precio_unitario, tbl_productos_pro_id, tbl_clientes_cli_id
+    FROM tbl_carrito;
+END //
+DELIMITER ;
+
+
+
 -- Eliminar
 DELIMITER //
 CREATE PROCEDURE procDeleteCarrito(IN v_id INT)

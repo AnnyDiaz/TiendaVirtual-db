@@ -42,6 +42,15 @@ BEGIN
 END //
 DELIMITER ;
 
+-- Mostrar DDL
+DELIMITER //
+CREATE PROCEDURE procSelectDetallesPedidosDDL()
+BEGIN
+    SELECT det_id, det_cantidad, det_precio, tbl_productos_pro_id, tbl_pedidos_pedi_id
+    FROM tbl_detalles_pedido;
+END //
+DELIMITER ;
+
 -- Eliminar
 DELIMITER //
 CREATE PROCEDURE procDeleteDetallePedidos(IN v_id INT)

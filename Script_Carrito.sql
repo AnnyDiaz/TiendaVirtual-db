@@ -33,13 +33,26 @@ BEGIN
 END //
 DELIMITER ;
 
--- Mostrar
 DELIMITER //
+
+
 CREATE PROCEDURE procSelectCarrito()
 BEGIN
-    SELECT carri_id, carri_cantidad, carri_precio_unitario, tbl_productos_pro_id, tbl_clientes_cli_id
-    FROM tbl_carrito;
+    SELECT DISTINCT
+        tbl_carrito.carri_id,                     
+        tbl_carrito.carri_cantidad,                  
+        tbl_carrito.carri_precio_unitario,                  
+        tbl_carrito.tbl_productos_pro_id,         
+        CONCAT(pro_nombre, ' - ', pro_precio) AS Productos,
+        tbl_carrito.tbl_clientes_cli_id, 
+        CONCAT(cli_nombre, ' - ', cli_direccion, ' - ', cli_telefono) AS Informacion        
+    FROM tbl_carrito
+    INNER JOIN tbl_productos 
+        ON tbl_carrito.tbl_productos_pro_id = tbl_productos.pro_id   
+    INNER JOIN tbl_clientes 
+        ON tbl_carrito.tbl_clientes_cli_id = tbl_clientes.cli_id;    
 END //
+
 DELIMITER ;
 
 

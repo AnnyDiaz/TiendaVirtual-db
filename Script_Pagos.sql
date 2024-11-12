@@ -43,8 +43,22 @@ DELIMITER ;
 DELIMITER //
 CREATE PROCEDURE procSelectPagos()
 BEGIN
-    SELECT pag_id, pag_fecha, pag_monto, pag_metodo_pago, pag_estado, tbl_pedidos_pedi_id, tbl_pedidos_tbl_clientes_cli_id
-    FROM tbl_pagos;
+    SELECT DISTINCT
+        pag_id, 
+        pag_fecha, 
+        pag_monto,  
+        pag_metodo_pago,  
+        pag_estado,
+        tbl_pedidos_pedi_id,
+        pedi_estado,
+        tbl_clientes_cli_id, 
+        CONCAT(cli_nombre, ' - ', cli_direccion, ' - ', cli_telefono) AS Informacion
+    FROM 
+        tbl_pagos
+    INNER JOIN tbl_pedidos ON
+        tbl_pagos.tbl_pedidos_pedi_id = tbl_pedidos_pedi_id
+INNER JOIN tbl_clientes ON
+        tbl_pagos.tbl_clientes_cli_id = tbl_clientes.cli_id;
 END //
 DELIMITER ;
 

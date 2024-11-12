@@ -37,8 +37,19 @@ DELIMITER ;
 DELIMITER //
 CREATE PROCEDURE procSelectDetallesPedidos()
 BEGIN
-    SELECT det_id, det_cantidad, det_precio, tbl_productos_pro_id, tbl_pedidos_pedi_id
-    FROM tbl_detalles_pedido;
+    SELECT DISTINCT
+        det_id,                     
+        det_cantidad,                  
+        det_precio,                  
+        tbl_productos_pro_id,         
+        CONCAT(pro_nombre, ' - ', pro_precio) AS Productos,
+        tbl_pedidos_pedi_id, 
+        tbl_pedidos.pedi_estado
+    FROM tbl_detalles_pedido
+    INNER JOIN tbl_productos 
+        ON tbl_detalles_pedido.tbl_productos_pro_id = tbl_productos.pro_id   
+    INNER JOIN tbl_pedidos
+        ON tbl_detalles_pedido.tbl_pedidos_pedi_id = tbl_pedidos.pedi_id;    
 END //
 DELIMITER ;
 

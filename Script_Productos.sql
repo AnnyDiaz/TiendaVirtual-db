@@ -40,9 +40,21 @@ DELIMITER ;
 DELIMITER //
 CREATE PROCEDURE procSelectProductos()
 BEGIN
-    SELECT pro_id, pro_nombre, pro_descripcion, pro_precio, tbl_categorias_cate_id, tbl_proveedores_prove_id 
-    FROM tbl_productos;
-END //
+    SELECT DISTINCT
+        p.pro_id,  
+        p.pro_nombre,
+        p.pro_descripcion, 
+        p.pro_precio,
+        c.cate_id AS categoria_id, 
+        c.cate_nombre AS categoria_nombre, 
+        pr.prove_id AS proveedor_id, 
+        pr.prove_nombre AS proveedor_nombre 
+    FROM tbl_productos p
+    INNER JOIN tbl_categorias c
+        ON p.tbl_categorias_cate_id = c.cate_id
+    INNER JOIN tbl_proveedores pr
+        ON p.tbl_proveedores_prove_id = pr.prove_id;
+END//
 DELIMITER ;
 
 -- Mostrar DDL
@@ -50,7 +62,7 @@ DELIMITER ;
 DELIMITER //
 CREATE PROCEDURE procSelectProductosDDL()
 BEGIN
-	select pro_id, pro_nombre, pro_descripcion, pro_precio, tbl_categorias_cate_id, tbl_proveedores_prove_id
+	select pro_id,concat (pro_nombre, ' - ',pro_precio) AS Productos
     from tbl_productos;
 END//
 DELIMITER ;

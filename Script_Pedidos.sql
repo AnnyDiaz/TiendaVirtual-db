@@ -37,8 +37,17 @@ DELIMITER ;
 DELIMITER //
 CREATE PROCEDURE procSelectPedidos()
 BEGIN
-    SELECT pedi_id, pedi_fecha, pedi_estado, pedi_total, tbl_clientes_cli_id
-    FROM tbl_pedidos;
+    SELECT DISTINCT
+        pedi_id, 
+        pedi_fecha, 
+        pedi_estado,  
+        pedi_total, 
+        tbl_clientes_cli_id, 
+        CONCAT(cli_nombre, ' - ', cli_direccion, ' - ', cli_telefono) AS Informacion
+    FROM 
+        tbl_pedidos 
+    INNER JOIN tbl_clientes ON
+        tbl_pedidos.tbl_clientes_cli_id = tbl_clientes.cli_id;
 END //
 DELIMITER ;
 
@@ -48,7 +57,7 @@ DELIMITER ;
 DELIMITER //
 CREATE PROCEDURE procSelectPedidosDDL()
 BEGIN
-    SELECT pedi_id, pedi_fecha, pedi_estado, pedi_total, tbl_clientes_cli_id
+    SELECT pedi_id, pedi_estado
     FROM tbl_pedidos;
 END //
 DELIMITER ;

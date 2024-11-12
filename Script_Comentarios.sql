@@ -37,8 +37,20 @@ DELIMITER ;
 DELIMITER //
 CREATE PROCEDURE procSelectComentarios()
 BEGIN
-    SELECT comen_id, comen_texto, comen_fecha, tbl_productos_pro_id, tbl_clientes_cli_id
-    FROM tbl_comentarios;
+    SELECT DISTINCT
+        tbl_comentarios.comen_id,                      
+        tbl_comentarios.comen_texto,                  
+        tbl_comentarios.comen_fecha,                  
+        tbl_productos_pro_id,         
+        concat (pro_nombre, ' - ',pro_precio) AS Productos,
+        tbl_clientes_cli_id, 
+        CONCAT(cli_nombre, ' - ', cli_direccion, ' - ', cli_telefono) AS Informacion        
+              
+    FROM tbl_comentarios
+    INNER JOIN tbl_productos 
+        ON tbl_comentarios.tbl_productos_pro_id = tbl_productos.pro_id   
+    INNER JOIN tbl_clientes 
+        ON tbl_comentarios.tbl_clientes_cli_id = tbl_clientes.cli_id;    
 END //
 DELIMITER ;
 
@@ -46,7 +58,7 @@ DELIMITER ;
 DELIMITER //
 CREATE PROCEDURE procSelectComentariosDDL()
 BEGIN
-    SELECT comen_id, comen_texto, comen_fecha, tbl_productos_pro_id, tbl_clientes_cli_id
+    SELECT comen_id, comen_texto
     FROM tbl_comentarios;
 END //
 DELIMITER ;

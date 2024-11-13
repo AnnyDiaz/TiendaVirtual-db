@@ -44,26 +44,29 @@ DELIMITER //
 CREATE PROCEDURE procSelectPagos()
 BEGIN
     SELECT DISTINCT
-        pag_id, 
-        pag_fecha, 
-        pag_monto,  
-        pag_metodo_pago,  
-        pag_estado,
-        tbl_pedidos_pedi_id,
-        pedi_estado,
-        tbl_pedidos_tbl_clientes_cli_id, 
-        CONCAT(cli_nombre, ' - ', cli_direccion, ' - ', cli_telefono) AS Informacion
+        tbl_pagos.pag_id, 
+        tbl_pagos.pag_fecha, 
+        tbl_pagos.pag_monto,  
+        tbl_pagos.pag_metodo_pago,  
+        tbl_pagos.pag_estado,
+        tbl_pedidos.pedi_id AS tbl_pedidos_pedi_id,
+        tbl_pedidos.pedi_estado,
+        tbl_clientes.cli_id AS tbl_pedidos_tbl_clientes_cli_id, 
+        CONCAT(tbl_clientes.cli_nombre, ' - ', tbl_clientes.cli_direccion, ' - ', tbl_clientes.cli_telefono) AS Informacion
     FROM 
         tbl_pagos
-    INNER JOIN tbl_pedidos ON
-        tbl_pagos.tbl_pedidos_pedi_id = tbl_pedidos_pedi_id
-INNER JOIN tbl_clientes ON
-        tbl_pagos.tbl_pedidos_tbl_clientes_cli_id = tbl_pedidos_tbl_clientes_cli_id;
+    INNER JOIN (
+        SELECT pedi_id, pedi_estado, tbl_clientes_cli_id
+        FROM tbl_pedidos
+        GROUP BY pedi_id, pedi_estado, tbl_clientes_cli_id
+    ) AS tbl_pedidos ON tbl_pagos.tbl_pedidos_pedi_id = tbl_pedidos.pedi_id
+    INNER JOIN (
+        SELECT cli_id, cli_nombre, cli_direccion, cli_telefono
+        FROM tbl_clientes
+        GROUP BY cli_id, cli_nombre, cli_direccion, cli_telefono
+    ) AS tbl_clientes ON tbl_pagos.tbl_pedidos_tbl_clientes_cli_id = tbl_clientes.cli_id;
 END //
 DELIMITER ;
-
-
-
 -- Mostrar DDL
 DELIMITER //
 CREATE PROCEDURE procSelectPagosDDL()

@@ -35,7 +35,7 @@ DELIMITER ;
 
 -- Mostrar
 DELIMITER //
-CREATE PROCEDURE procSelectPagos()
+CREATE PROCEDURE procSelectDetallesPedidos()
 BEGIN
     SELECT DISTINCT
         det_id,                     
